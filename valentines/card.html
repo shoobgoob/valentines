@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To my husband</title>
+    <style>
+        body {
+            font-family: 'Courier New', Courier, monospace;
+            text-align: center;
+            background: none;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* Full-screen blurred background */
+        .bg-blur {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('kiss.jpg') no-repeat center center fixed;
+            background-size: cover;
+            filter: blur(10px);
+            z-index: -1;
+        }
+
+
+        .container {
+            margin-top: 50px;
+        }
+        #letter {
+            width: 60%;
+            margin: auto;
+            font-size: 20px;
+            white-space: pre-wrap;
+            border: 2px solid #f5b2b2;
+            padding: 20px;
+            background: white;
+            box-shadow: 5px 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .gif-container {
+            margin-top: 30px;
+            margin-bottom: 20px;
+        }
+
+        .photos {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 30px;
+        }
+        .photo {
+            width: 150px;
+            height: 150px;
+            margin: 10px;
+            border-radius: 10px;
+            object-fit: cover;
+            box-shadow: 3px 3px 10px rgba(0,0,0,0.2);
+            cursor: pointer;
+        }
+        .music-control {
+            margin-top: 20px;
+        }
+
+        /* Floating hearts */
+        .floating-heart {
+            position: absolute;
+            color: red;
+            font-size: 20px;
+            opacity: 0.7;
+            animation: floatUp 4s infinite ease-in-out;
+        }
+
+        /* Floating heart animation */
+        @keyframes floatUp {
+            0% { transform: translateY(0); opacity: 0.7; }
+            100% { transform: translateY(-100vh); opacity: 0; }
+        }
+
+        /* Modal (lightbox) styling */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+        .modal img {
+            max-width: 90%;
+            max-height: 90%;
+            border-radius: 10px;
+            box-shadow: 5px 5px 20px rgba(255, 255, 255, 0.2);
+        }
+        .close-btn {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            font-size: 30px;
+            color: white;
+            cursor: pointer;
+        }
+
+        h1 {
+    color: white;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="bg-blur"></div>
+    <div class="container">
+        <h1>💌 ฅ^. .^ฅ</h1>
+        <div id="letter"></div>
+        <div class="gif-container">
+            <img src="usagi.gif" width="200">
+        </div>
+
+        <!-- Photos -->
+        <div class="photos">
+            <img src="yellow.jpg" class="photo" onclick="openModal(this.src)">
+            <img src="baby.jpg" class="photo" onclick="openModal(this.src)">
+            <img src="star.jpg" class="photo" onclick="openModal(this.src)">
+        </div>
+
+        <!-- Music Control -->
+        <div class="music-control">
+            <button onclick="toggleMusic()">🎵 Love.</button>
+            <audio id="bg-music" loop>
+                <source src="love.mp3" type="audio/mpeg">
+            </audio>
+        </div>
+    </div>
+
+    <!-- Modal (Lightbox) -->
+    <div id="modal" class="modal" onclick="closeModal()">
+        <span class="close-btn" onclick="closeModal()">✖</span>
+        <img id="modal-img">
+    </div>
+
+    <script>
+        const letterText = "Hiii sayangg,\n\nI hope you know how much I love you and how grateful I am to have you in my life. Just so you know I've been making this website for a while now and adding the photos as we go out (hehe). You're the best thing that's ever happened to me, and I know that sometimes I'm a little too much to handle, but I also know you'll still love me regardless. I love you so so much, I don't know what I'd ever do without my sweet boy. Thanks for being here with me sayang 💋.\n\nWith love,\nyour wife";
+        
+        let i = 0;
+        function typeLetter() {
+            if (i < letterText.length) {
+                document.getElementById("letter").innerText += letterText[i];
+                i++;
+                setTimeout(typeLetter, 50);
+            }
+        }
+        setTimeout(typeLetter, 1000);
+
+        function toggleMusic() {
+            const music = document.getElementById("bg-music");
+            if (music.paused) {
+                music.play();
+            } else {
+                music.pause();
+            }
+        }
+
+        // Open Modal (Lightbox)
+        function openModal(imageSrc) {
+            document.getElementById("modal").style.display = "flex";
+            document.getElementById("modal-img").src = imageSrc;
+        }
+
+        // Close Modal (Lightbox)
+        function closeModal() {
+            document.getElementById("modal").style.display = "none";
+        }
+
+        // Create Floating Heart Animation
+        function createFloatingHeart() {
+            const heart = document.createElement("div");
+            heart.innerHTML = "❤";
+            heart.classList.add("floating-heart");
+            heart.style.left = Math.random() * 100 + "vw";
+            heart.style.animationDuration = Math.random() * 2 + 3 + "s";
+            document.body.appendChild(heart);
+            setTimeout(() => heart.remove(), 4000);
+        }
+        setInterval(createFloatingHeart, 500);
+    </script>
+</body>
+</html>
